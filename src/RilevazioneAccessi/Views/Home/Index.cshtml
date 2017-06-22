@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+<!--
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -107,3 +107,20 @@
         </ul>
     </div>
 </div>
+    -->
+
+
+@model List<RilevazioneAccessi.Models.ViewModels.RilevazioniViewModel>
+
+@foreach(var item in Model)
+{
+    <div class="list-group-item">
+        @item.accesso.Id <br />
+        @item.accesso.Gate <br />
+        @item.accesso.DataOra <br />
+        @item.accesso.Sospettato <br />
+        @item.tipoAccesso.Valore<br />
+
+    </div>
+
+}

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using RilevazioneAccessi.Data;
 
 namespace RilevazioneAccessi
 {
@@ -29,9 +30,7 @@ namespace RilevazioneAccessi
         {
             // Add framework services.
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddSingleton<IDataAccess>(new DataAccess(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
         }
