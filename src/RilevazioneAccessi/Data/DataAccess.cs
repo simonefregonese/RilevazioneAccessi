@@ -82,9 +82,7 @@ SELECT Valore
             string rightUser = "admin";
             string rightPassword = "AdminFighetto44";
 
-            if (user == rightUser && passwd == rightPassword)
-                return true;
-            return false;
+            return (user == rightUser && passwd == rightPassword);
         }
     }
 }

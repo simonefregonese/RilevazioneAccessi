@@ -30,7 +30,7 @@ namespace RilevazioneAccessi.Controllers
                     {
                         Id = accesso.Id,
                         DataOra = accesso.DataOra,
-                        Gate = accesso.Gate,
+                        Gate = accesso.Gate.Trim(),
                         Id_tipoaccesso = accesso.Id_tipoaccesso,
                         Id_utente = accesso.Id_utente,
                         Sospettato = accesso.Sospettato
@@ -44,7 +44,6 @@ namespace RilevazioneAccessi.Controllers
                 });
             }
 
-            //return View(a);
             return new JsonResult(a);
         }
 
