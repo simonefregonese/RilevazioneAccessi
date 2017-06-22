@@ -16,5 +16,7 @@ namespace RilevazioneAccessi.Data
 
         // Partendo dall'id di un tipoAccesso ne ricava il valore dal DB
         string GetValore(int id);
+
+        bool isAuthenticated(string user, string passw);
     }
 }

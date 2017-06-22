@@ -75,5 +75,16 @@ SELECT Valore
                 Sospettato = false
             };
         }
+
+
+        public bool isAuthenticated(string user, string passwd)
+        {
+            string rightUser = "admin";
+            string rightPassword = "AdminFighetto44";
+
+            if (user == rightUser && passwd == rightPassword)
+                return true;
+            return false;
+        }
     }
 }
