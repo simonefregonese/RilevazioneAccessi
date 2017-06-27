@@ -20,6 +20,7 @@ namespace RilevazioneAccessi.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Index(string user, string passw)
         {

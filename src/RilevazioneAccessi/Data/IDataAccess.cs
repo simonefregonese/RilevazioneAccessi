@@ -18,5 +18,9 @@ namespace RilevazioneAccessi.Data
         string GetValore(int id);
 
         bool isAuthenticated(string user, string passw);
+
+        List<Utente> GetUtenti();
+
+        Sospettato GetUtenteById(int id);
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using RilevazioneAccessi.Models;
 using RilevazioneAccessi.Data;
 using RilevazioneAccessi.Models.ViewModels;
+using System.Net.Http;
 
 namespace RilevazioneAccessi.Controllers
 {
@@ -17,14 +18,15 @@ namespace RilevazioneAccessi.Controllers
         {
             this._data = dataAccess;
         }
-        public IActionResult GetAll()
+
+        /*public IActionResult GetAll()
         {
             var accessi = _data.ListAccessi();
-            var a = new List<RilevazioniViewModel>();
+            var passaggi = new List<RilevazioniViewModel>();
 
             foreach (var accesso in accessi)
             {
-                a.Add(new RilevazioniViewModel()
+                passaggi.Add(new RilevazioniViewModel()
                 {
                     accesso = new Accessi()
                     {
@@ -44,7 +46,17 @@ namespace RilevazioneAccessi.Controllers
                 });
             }
 
-            return new JsonResult(a);
+            return Json(passaggi);
+        }*/
+
+        public JsonResult GetAll()
+        {
+            return Json(_data.GetUtenti());
+        }
+
+        public JsonResult Check(int id)
+        {
+            return Json(_data.GetUtenteById(id));
         }
 
         public IActionResult About()
