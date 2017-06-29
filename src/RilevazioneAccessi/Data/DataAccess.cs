@@ -49,7 +49,6 @@ namespace RilevazioneAccessi.Data
 
         public IEnumerable<Accessi> ListAccessi()
         {
-            //var result = new List<Accessi>();
             using (var connection = new SqlConnection(this.connectionString))
             {
                 connection.Open();
@@ -66,6 +65,45 @@ SELECT A.[Id]
   on (A.Id_tipoAccesso = TA.Id)");
             }
 
+        }
+
+        public IEnumerable<Utente> ListAccessi(DateTime dataDa, DateTime dataA, string cognome, string nome) //DA MIGLIORARE
+        {
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                return connection.Query<Utente> ($@"
+  SELECT U.ID,
+      U.[Surname]
+      ,U.[Name]
+      ,U.[BirthDate]
+	  , A.DataOra
+  FROM [PrismaCode].[dbo].[Utenti] U
+  INNER JOIN Accessi A
+  ON A.Id_utente = U.ID
+  WHERE A.DataOra BETWEEN '{dataDa}' AND {dataA}
+OR U.Surname = '{cognome}' 
+OR U.Name = '{nome}' ");              
+
+            }
+        }
+
+        public void InsertUtenti()
+        {
+            var list = new List<Utente>();
+
+            list = GetUtenti();
+
+            foreach (var item in list)
+            {
+                using (var connection = new SqlConnection(this.connectionString))
+                {
+                    connection.Open();
+                    connection.Query(@"
+INSERT INTO Utenti(ID, Surname, Name, BirthDate)
+VALUES (@ID, @Surname, @Name, @BirthDate)", item);
+                }
+            }
         }
 
         public string GetValore(int id)

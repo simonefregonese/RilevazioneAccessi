@@ -22,5 +22,7 @@ namespace RilevazioneAccessi.Data
         List<Utente> GetUtenti();
 
         Sospettato GetUtenteById(int id);
+
+        void InsertUtenti();
     }
 }

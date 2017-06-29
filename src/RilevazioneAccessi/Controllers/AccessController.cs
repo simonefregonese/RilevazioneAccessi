@@ -59,6 +59,12 @@ namespace RilevazioneAccessi.Controllers
             return Json(_data.GetUtenteById(id));
         }
 
+        public IActionResult Insert()
+        {
+            _data.InsertUtenti();
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
