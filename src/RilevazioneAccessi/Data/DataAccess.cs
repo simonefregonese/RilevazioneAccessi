@@ -22,20 +22,8 @@ namespace RilevazioneAccessi.Data
             this.connectionString = _connectionString;
         }
 
-        public List<Utente> GetUtenti()
-        {
-            using (HttpClient httpClient = new HttpClient())
-            {
-                Task<String> response = httpClient.GetStringAsync(uri);
-
-                return Task.Factory.StartNew(() => JsonConvert.DeserializeObject<List<Utente>>(response.Result)).Result;
-
-                //la riga sotto è stata commentata perchè definita obsoleta da visual studio
-                //return JsonConvert.DeserializeObjectAsync<List<Utente>>(response.Result).Result;               
-            }
-        }
-        
-        public Sospettato GetUtenteById(int id)
+                
+        public Sospettato CheckSospettato(int id)
         {
             string suspectUrl = uri + checkSuspect + id;
 
@@ -67,7 +55,7 @@ SELECT A.[Id]
 
         }
 
-        public IEnumerable<Utente> ListAccessi(DateTime dataDa, DateTime dataA, string cognome, string nome) //DA MIGLIORARE
+        public IEnumerable<Utente> ListUtentiRicerca(DateTime dataDa, DateTime dataA, string cognome, string nome) //DA MIGLIORARE
         {
             using (var connection = new SqlConnection(this.connectionString))
             {
@@ -88,21 +76,14 @@ OR U.Name = '{nome}' ");
             }
         }
 
-        public void InsertUtenti()
+        public List<Utente> GetUtenti()
         {
-            var list = new List<Utente>();
-
-            list = GetUtenti();
-
-            foreach (var item in list)
+            using (var connection = new SqlConnection(this.connectionString))
             {
-                using (var connection = new SqlConnection(this.connectionString))
-                {
-                    connection.Open();
-                    connection.Query(@"
-INSERT INTO Utenti(ID, Surname, Name, BirthDate)
-VALUES (@ID, @Surname, @Name, @BirthDate)", item);
-                }
+                connection.Open();
+                return connection.Query<Utente>($@"
+SELECT *
+  FROM Utenti").ToList();
             }
         }
 

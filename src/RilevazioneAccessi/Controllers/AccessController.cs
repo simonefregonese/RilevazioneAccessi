@@ -56,13 +56,7 @@ namespace RilevazioneAccessi.Controllers
 
         public JsonResult Check(int id)
         {
-            return Json(_data.GetUtenteById(id));
-        }
-
-        public IActionResult Insert()
-        {
-            _data.InsertUtenti();
-            return View();
+            return Json(_data.CheckSospettato(id));
         }
 
         public IActionResult About()
